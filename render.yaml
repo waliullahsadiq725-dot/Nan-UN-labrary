@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: nudl-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:////tmp/nudl.db
+      - key: UPLOAD_DIR
+        value: /tmp/nudl-uploads
+      - key: MAX_UPLOAD_MB
+        value: "25"
